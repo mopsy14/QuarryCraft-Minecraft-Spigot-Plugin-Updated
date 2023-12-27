@@ -1,8 +1,9 @@
-# QuarryCraft-Minecraft---Spigot-1.14-Plugin-
-A spigot  plugin that adds a quarry to minecraft.
+# QuarryCraft-Minecraft-Spigot-Plugin-Updated
+An updated version of a spigot plugin that adds a quarry to minecraft.
 
 
-View this plugin on SpigotMC: https://www.spigotmc.org/resources/quarrycraft.72765/
+View this plugin on SpigotMC: https://www.spigotmc.org/resources/quarrycraft-updated.114148/
+Or view the orignal version by nullbyte001 on SpigotMC: https://www.spigotmc.org/resources/quarrycraft.72765/
 
 
 **Making the quarry**
@@ -58,7 +59,7 @@ Emerald Blocks- Reduce mining delay by 1 tick for every 4 emerald blocks. Max is
 
 Diamond Blocks - Increases the number of blocks mined at a time by 1 for every diamond block. Max is 36 diamond blocks.
 
-Gold Blocks - Increases the efficiency of the quarry. Max is about 99% efficiency at 100 gold blocks.
+Netherite Blocks - Increases the fuel usage of the quarry. Max is about 0,3% at 16 netherite blocks.
 
 Nether Star - Place a single nether star in a chest above the redstone to enable dirt block replacements for mined blocks in the ender mining mode.
 

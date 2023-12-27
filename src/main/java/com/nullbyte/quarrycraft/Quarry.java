@@ -12,6 +12,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
+import static com.nullbyte.quarrycraft.Main.*;
+
 public class Quarry extends BukkitRunnable {
 	Location centreChestLocation;
 	Chest centreChest;
@@ -32,7 +34,7 @@ public class Quarry extends BukkitRunnable {
 	
 	int emeraldBlocks = 0;
 	int diamondBlocks = 0;
-	int goldBlocks = 0;
+	int efficiencyBlocks = 0;
 	boolean platformDone;
 	boolean clearedPlatform;
 	int platX,platZ;
@@ -42,7 +44,7 @@ public class Quarry extends BukkitRunnable {
 	
 	float energyMod = 1.0f;
 	
-	static Material[] ignored = {Material.BEDROCK, Material.AIR, Material.WATER, Material.LAVA, Material.SHORT_GRASS, Material.GRASS_BLOCK, Material.DIRT_PATH, Material.STONE, Material.COBBLESTONE, Material.DIRT, Material.COARSE_DIRT};
+	static Material[] ignored = {Material.BEDROCK, Material.AIR, Material.WATER, Material.LAVA, Material.GRASS, Material.GRASS_BLOCK, Material.DIRT_PATH, Material.STONE, Material.COBBLESTONE, Material.DIRT, Material.COARSE_DIRT};
 
 	public Quarry(Chest centreChest, String owner) {
 		this.owner = owner;
@@ -260,21 +262,21 @@ public class Quarry extends BukkitRunnable {
 	public void calculateUpgrades() {
 		int emeraldBlockCount = 0; // Emeralds blocks increase the mining rate. 4 emerald blocks reduces mining delay by 1 tick
 		int diamondBlockCount = 0; // Diamond blocks increase the blocks mined at a time. 4 diamond blocks give 1 more block at a time
-		int goldBlockCount = 0;
+		int efficiencyBlockCount = 0;
 		boolean hasNetherStar = false;
 		
 		int cx = centreChestLocation.getBlockX();
 		int cy = centreChestLocation.getBlockY();
 		int cz = centreChestLocation.getBlockZ();
 		
-		
+		Material efficiencyUpgradeMat = netheriteInsteadOfGold ? Material.NETHERITE_BLOCK : Material.GOLD_BLOCK;
 		
 		if(world.getBlockAt(cx-1,cy+1,cz-1).getType().equals(Material.CHEST) || world.getBlockAt(cx-1,cy+1,cz-1).getType().equals(Material.TRAPPED_CHEST)) {
 			Inventory chestInv = ((Chest)world.getBlockAt(cx-1,cy+1,cz-1).getState()).getInventory();
 			for(int i=0; i<chestInv.getSize(); i++) {
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.EMERALD_BLOCK))emeraldBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.DIAMOND_BLOCK))diamondBlockCount += chestInv.getItem(i).getAmount();
-				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.GOLD_BLOCK))goldBlockCount += chestInv.getItem(i).getAmount();
+				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(efficiencyUpgradeMat))efficiencyBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.NETHER_STAR))hasNetherStar = true;
 			}
 		}
@@ -283,7 +285,7 @@ public class Quarry extends BukkitRunnable {
 			for(int i=0; i<chestInv.getSize(); i++) {
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.EMERALD_BLOCK))emeraldBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.DIAMOND_BLOCK))diamondBlockCount += chestInv.getItem(i).getAmount();
-				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.GOLD_BLOCK))goldBlockCount += chestInv.getItem(i).getAmount();
+				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(efficiencyUpgradeMat))efficiencyBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.NETHER_STAR))hasNetherStar = true;
 			}
 		}
@@ -292,7 +294,7 @@ public class Quarry extends BukkitRunnable {
 			for(int i=0; i<chestInv.getSize(); i++) {
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.EMERALD_BLOCK))emeraldBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.DIAMOND_BLOCK))diamondBlockCount += chestInv.getItem(i).getAmount();
-				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.GOLD_BLOCK))goldBlockCount += chestInv.getItem(i).getAmount();
+				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(efficiencyUpgradeMat))efficiencyBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.NETHER_STAR))hasNetherStar = true;
 			}
 		}
@@ -301,23 +303,27 @@ public class Quarry extends BukkitRunnable {
 			for(int i=0; i<chestInv.getSize(); i++) {
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.EMERALD_BLOCK))emeraldBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.DIAMOND_BLOCK))diamondBlockCount += chestInv.getItem(i).getAmount();
-				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.GOLD_BLOCK))goldBlockCount += chestInv.getItem(i).getAmount();
+				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(efficiencyUpgradeMat))efficiencyBlockCount += chestInv.getItem(i).getAmount();
 				if(chestInv.getItem(i) != null && chestInv.getItem(i).getType().equals(Material.NETHER_STAR))hasNetherStar = true;
 			}
 		}
 		
 		if(emeraldBlockCount > 76) emeraldBlockCount = 76;
 		if(diamondBlockCount > 36) diamondBlockCount = 36;
-		if(goldBlockCount > 100) goldBlockCount = 100;
+		if(efficiencyBlockCount > maxFuelModBlocks) efficiencyBlockCount = maxFuelModBlocks;
 		
-		if(emeraldBlockCount != emeraldBlocks || diamondBlockCount != diamondBlocks || (enderReplaceDirt != hasNetherStar) || goldBlockCount != goldBlocks) {
+		if(emeraldBlockCount != emeraldBlocks || diamondBlockCount != diamondBlocks || (enderReplaceDirt != hasNetherStar) || efficiencyBlockCount != efficiencyBlocks) {
 			emeraldBlocks = emeraldBlockCount;
 			diamondBlocks = diamondBlockCount;
-			goldBlocks = goldBlockCount;
+			efficiencyBlocks = efficiencyBlockCount;
 			enderReplaceDirt = hasNetherStar;
-			
-			energyMod = (101.0f-(float)goldBlocks)/101.0f;
-			float efficiency = 100.0f*((float)goldBlocks)/101.0f;
+
+			if(quadraticFuelModifier) {
+				energyMod = (float) Math.pow(quadraticModPercentageValue/100f, efficiencyBlocks);
+			}else {
+				energyMod = (float) (maxFuelModBlocks+1 - efficiencyBlocks) / maxFuelModBlocks+1;
+			}
+			float efficiency = energyMod*100;
 			
 			miningDelay = 20 - ((int)(Math.floor(((float)emeraldBlocks)/4.0)));
 			blocksPerTick = 1 + (int)Math.floor(((float)diamondBlocks)/4.0 );
@@ -790,7 +796,7 @@ public class Quarry extends BukkitRunnable {
 			if(hasFuel(energyToUse)) {
 				if(addMined(thisMaterial)) {
 					consumeFuel(energyToUse);
-					if(thisMaterial.equals(Material.DIRT) || thisMaterial.equals(Material.SHORT_GRASS) || thisMaterial.equals(Material.GRASS_BLOCK)) world.playSound(blockToMine.getLocation(), Sound.BLOCK_GRASS_BREAK, 1.0f, 1.0f);
+					if(thisMaterial.equals(Material.DIRT) || thisMaterial.equals(Material.GRASS) || thisMaterial.equals(Material.GRASS_BLOCK)) world.playSound(blockToMine.getLocation(), Sound.BLOCK_GRASS_BREAK, 1.0f, 1.0f);
 					else if(thisMaterial.equals(Material.GRAVEL)) world.playSound(blockToMine.getLocation(), Sound.BLOCK_GRAVEL_BREAK, 1.0f, 1.0f);
 					else world.playSound(blockToMine.getLocation(), Sound.BLOCK_STONE_BREAK, 1.0f, 1.0f);
 					blockToMine.setType(Material.AIR);

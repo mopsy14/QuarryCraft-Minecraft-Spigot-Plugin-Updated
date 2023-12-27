@@ -45,8 +45,8 @@ public class Main extends JavaPlugin implements Listener {
 	public static int maxGPY = 100;
 	public static int minGPY = 20;
 	public static boolean quadraticFuelModifier = true;
-	public static int quadraticModPercentageValue = 50;
-	public static int maxFuelModBlocks = 15;
+	public static int quadraticModPercentageValue = 70;
+	public static int maxFuelModBlocks = 16;
 	public static boolean netheriteInsteadOfGold = true;
 	
 	public static ConfigurableMessages configurableMessages;

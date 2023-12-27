@@ -81,7 +81,7 @@ public class ConfigurableMessages {
 		emeraldBlocksToUpgrade = "Emerald blocks to next upgrade";
 		blocksMinedAtATime = "Blocks mined at a time";
 		diamondBlocksToUpgrade = "Diamond blocks to next upgrade";
-		efficiency = "Efficiency";
+		efficiency = "Fuel usage percentage";
 		enderReplaceDirt = "Ender mining replaces blocks with dirt";
 		quarryFinishedStatus = "The quarry is finished at";
 		quarryMiningStatus = "The quarry is mining at";
