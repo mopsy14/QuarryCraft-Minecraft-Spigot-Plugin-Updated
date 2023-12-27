@@ -44,6 +44,10 @@ public class Main extends JavaPlugin implements Listener {
 	public static boolean doGPProtection = true;
 	public static int maxGPY = 100;
 	public static int minGPY = 20;
+	public static boolean quadraticFuelModifier = true;
+	public static int quadraticModPercentageValue = 50;
+	public static int maxFuelModBlocks = 15;
+	public static boolean netheriteInsteadOfGold = true;
 	
 	public static ConfigurableMessages configurableMessages;
 
@@ -490,7 +494,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void loadConfig() {
 		String fileSeparator = System.getProperty("file.separator");
 		String path = "plugins" + fileSeparator + "QuarryCraft" + fileSeparator + "config.conf";
-		int latestVersion = 130;
+		int latestVersion = 140;
 		String configVersion = null;
 		try {
 			BufferedReader inFile = new BufferedReader(new FileReader(path));
@@ -507,34 +511,46 @@ public class Main extends JavaPlugin implements Listener {
 				val = splitString[1].trim().toLowerCase();
 				
 				switch(var) {
-				case "quarries-per-player":
-					quarryLimit = Integer.parseInt(val);
-					break;
-				case "max-quarry-width":
-					maxQuarryWidth = Integer.parseInt(val);
-					break;
-				case "max-quarry-length":
-					maxQuarryLength = Integer.parseInt(val);
-					break;
-				case "enable-quarrycraft-welcome-message":
-					if(val.equals("false") || val.equals("0"))
-						welcomeMessages = false;
-					break;
-				case "guidebook-cooldown-milliseconds":
-					guideBookCooldown = Long.parseLong(val);
-					break;
-				case "do-worldguard-protection":
-					if(val.equals("false") || val.equalsIgnoreCase("0")) doWGProtection = false;
-					break;
-				case "max-worldguard-y-check":
-					maxWGY = Integer.parseInt(val);
-					break;
-				case "min-worldguard-y-check":
-					minWGY = Integer.parseInt(val);
-					break;
-				case "version":
-					configVersion = val;
-					break;
+					case "quarries-per-player":
+						quarryLimit = Integer.parseInt(val);
+						break;
+					case "max-quarry-width":
+						maxQuarryWidth = Integer.parseInt(val);
+						break;
+					case "max-quarry-length":
+						maxQuarryLength = Integer.parseInt(val);
+						break;
+					case "enable-quarrycraft-welcome-message":
+						if(val.equals("false") || val.equals("0"))
+							welcomeMessages = false;
+						break;
+					case "guidebook-cooldown-milliseconds":
+						guideBookCooldown = Long.parseLong(val);
+						break;
+					case "do-worldguard-protection":
+						if(val.equals("false") || val.equalsIgnoreCase("0")) doWGProtection = false;
+						break;
+					case "max-worldguard-y-check":
+						maxWGY = Integer.parseInt(val);
+						break;
+					case "min-worldguard-y-check":
+						minWGY = Integer.parseInt(val);
+						break;
+					case "use-quadratic-fuel-usage-upgrade-instead-of-linear":
+						quadraticFuelModifier = val.equalsIgnoreCase("true");
+						break;
+					case "(quadratic-)fuel-usage-percentage-per-block":
+						quadraticModPercentageValue = Integer.parseInt(val);
+						break;
+					case "use-netherite-blocks-instead-of-legacy-gold-blocks":
+						netheriteInsteadOfGold = val.equalsIgnoreCase("true");
+						break;
+					case "max-amount-of-fuel-usage-upgrade-blocks":
+						maxFuelModBlocks = Integer.parseInt(val);
+						break;
+					case "version":
+						configVersion = val;
+						break;
 				}
 				
 			} while(currentString != null);
@@ -550,6 +566,11 @@ public class Main extends JavaPlugin implements Listener {
 				fileString += "max-quarry-width = " + maxQuarryWidth + "\n";
 				fileString += "max-quarry-length = " + maxQuarryLength + "\n";
 				fileString += "enable-quarrycraft-welcome-message = " + welcomeMessages + "\n\n";
+				fileString += "fuel modifier upgrade settings:\n";
+				fileString += "use-quadratic-fuel-usage-upgrade-instead-of-linear = " + quadraticFuelModifier + "\n";
+				fileString += "(quadratic-)fuel-usage-percentage-per-block = " + quadraticModPercentageValue + "\n";
+				fileString += "use-netherite-blocks-instead-of-legacy-gold-blocks = " + netheriteInsteadOfGold + "\n";
+				fileString += "max-amount-of-fuel-usage-upgrade-blocks = " + maxFuelModBlocks + "\n\n";
 				fileString += "guidebook-cooldown-milliseconds = " + guideBookCooldown + "\n";
 				fileString += "version = " + latestVersion + "\n";
 				
@@ -567,7 +588,7 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		} catch (IOException e) {
 			String fileString = "";
-			fileString += "do-worldguard-protection = " + doWGProtection + "\n";  
+			fileString += "do-worldguard-protection = " + doWGProtection + "\n";
 			fileString += "max-worldguard-y-check = " + maxWGY + "\n";
 			fileString += "min-worldguard-y-check = " + minWGY + "\n";
 			fileString += "quarries-per-player = " + quarryLimit + "\n\n";
@@ -575,6 +596,11 @@ public class Main extends JavaPlugin implements Listener {
 			fileString += "max-quarry-width = " + maxQuarryWidth + "\n";
 			fileString += "max-quarry-length = " + maxQuarryLength + "\n";
 			fileString += "enable-quarrycraft-welcome-message = " + welcomeMessages + "\n\n";
+			fileString += "fuel modifier upgrade settings:\n";
+			fileString += "use-quadratic-fuel-usage-upgrade-instead-of-linear = " + quadraticFuelModifier + "\n";
+			fileString += "(quadratic-)fuel-usage-percentage-per-block = " + quadraticModPercentageValue + "\n";
+			fileString += "use-netherite-blocks-instead-of-legacy-gold-blocks = " + netheriteInsteadOfGold + "\n";
+			fileString += "max-amount-of-fuel-usage-upgrade-blocks = " + maxFuelModBlocks + "\n\n";
 			fileString += "guidebook-cooldown-milliseconds = " + guideBookCooldown + "\n";
 			fileString += "version = " + latestVersion + "\n";
 			
