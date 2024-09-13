@@ -6,7 +6,7 @@
 
     <groupId>com.nullbyte</groupId>
     <artifactId>quarrycraft.port</artifactId>
-    <version>1</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>QuarryCraftPort</name>
