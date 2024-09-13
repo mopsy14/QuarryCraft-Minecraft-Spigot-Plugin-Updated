@@ -16,6 +16,6 @@ public class GriefPreventionHandler {
 			Supplier<String> stringSupplier = claim.checkPermission(owner,ClaimPermission.Build,null);
 			return stringSupplier != null && stringSupplier.get() == null;
 		}
-		return false;
+		return true;
 	}
 }

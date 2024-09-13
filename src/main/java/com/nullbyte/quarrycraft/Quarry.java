@@ -334,7 +334,13 @@ public class Quarry extends BukkitRunnable {
 			if(emeraldBlocks == 76) emeraldsToNext = 0;
 			if(diamondBlocks == 36) diamondsToNext = 0;
 			
-			tellOwner(Main.configurableMessages.quarryModified() + "\n" +Main.configurableMessages.miningDelay() + ": " + ChatColor.DARK_GREEN + miningDelay + ChatColor.WHITE + "\n" + Main.configurableMessages.emeraldBlocksToUpgrade() + ": " + ChatColor.GREEN + emeraldsToNext + ChatColor.WHITE + "\n" + Main.configurableMessages.blocksMinedAtATime() + ": " + ChatColor.DARK_BLUE + blocksPerTick + ChatColor.WHITE + "\n" + Main.configurableMessages.diamondBlocksToUpgrade() + ": " +ChatColor.AQUA + diamondsToNext + ChatColor.WHITE + "\n" + Main.configurableMessages.efficiency() + ": "+ ChatColor.YELLOW + efficiency + "%"+ChatColor.WHITE +  "\n" + Main.configurableMessages.enderReplaceDirt() + ": " + ChatColor.GOLD + enderReplaceDirt);
+			tellOwner(Main.configurableMessages.quarryModified() +
+					"\n" +Main.configurableMessages.miningDelay() + ": " + ChatColor.DARK_GREEN + miningDelay +
+					ChatColor.WHITE + "\n" + Main.configurableMessages.emeraldBlocksToUpgrade() + ": " + ChatColor.GREEN + emeraldsToNext +
+					ChatColor.WHITE + "\n" + Main.configurableMessages.blocksMinedAtATime() + ": " + ChatColor.DARK_BLUE + blocksPerTick +
+					ChatColor.WHITE + "\n" + Main.configurableMessages.diamondBlocksToUpgrade() + ": " +ChatColor.AQUA + diamondsToNext +
+					ChatColor.WHITE + "\n" + Main.configurableMessages.efficiency() + ": "+ ChatColor.YELLOW + efficiency + "%" +
+					ChatColor.WHITE + "\n" + Main.configurableMessages.enderReplaceDirt() + ": " + ChatColor.GOLD + enderReplaceDirt);
 		}
 		
 	}
