@@ -1,5 +1,5 @@
 name: QuarryCraft
-version: 1.1
+version: 1.2
 main: com.nullbyte.quarrycraft.Main
 api-version: 1.17
 softdepend: [WorldGuard, GriefPrevention]

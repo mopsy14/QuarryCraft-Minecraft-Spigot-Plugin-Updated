@@ -514,7 +514,7 @@ public class Quarry extends BukkitRunnable {
 	}
 	
 	public boolean addMined(Material mat) {
-		if(isFiltered(mat)) {
+		if(isFiltered(mat)||!mat.isItem()) {
 			return true;
 		}
 		int cx = centreChestLocation.getBlockX();
